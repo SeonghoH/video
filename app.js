@@ -363,7 +363,7 @@ function buildMechanicalComposition(settings, random) {
       h: snapTo(randomBetween(random, height * 0.035, height * 0.12), grid / 2),
       angle: pick(random, [-Math.PI / 4, -Math.PI / 8, 0, Math.PI / 4]),
       color: palette.colors[1 + (i % 3)],
-      alpha: randomBetween(random, 0.055, 0.16),
+      alpha: randomBetween(random, 0.028, 0.09),
       phase: random() * Math.PI * 2,
     });
   }
@@ -377,7 +377,7 @@ function buildMechanicalComposition(settings, random) {
       h: snapTo(randomBetween(random, height * 0.035, height * 0.09), grid / 2),
       angle: pick(random, [-Math.PI / 4, 0, Math.PI / 4]),
       step: randomBetween(random, 10, 22),
-      alpha: randomBetween(random, 0.13, 0.24),
+      alpha: randomBetween(random, 0.065, 0.14),
     });
   }
 
@@ -393,8 +393,8 @@ function buildMechanicalComposition(settings, random) {
       x2: x + Math.cos(angle) * length,
       y2: y + Math.sin(angle) * length,
       width: randomBetween(random, 0.65, 1.6),
-      color: pick(random, [palette.colors[2], palette.colors[3], palette.colors[5]]),
-      alpha: randomBetween(random, 0.14, 0.48),
+      color: pick(random, [palette.colors[2], palette.colors[3], palette.colors[4]]),
+      alpha: randomBetween(random, 0.12, 0.34),
       ticks: Math.floor(randomBetween(random, 2, 9)),
       phase: random() * Math.PI * 2,
     });
@@ -409,7 +409,7 @@ function buildMechanicalComposition(settings, random) {
       r,
       inner: randomBetween(random, 0.34, 0.72),
       color: pick(random, [palette.colors[2], palette.colors[3], palette.colors[4]]),
-      alpha: randomBetween(random, 0.12, 0.4),
+      alpha: randomBetween(random, 0.34, 0.78),
       segments: Math.floor(randomBetween(random, 2, 6)),
       ticks: Math.floor(randomBetween(random, 8, 28)),
       speed: randomBetween(random, -0.55, 0.55),
@@ -422,10 +422,10 @@ function buildMechanicalComposition(settings, random) {
     state.nodes.push({
       x: snapTo(randomBetween(random, width * 0.04, width * 0.96), grid / 2),
       y: snapTo(randomBetween(random, height * 0.04, height * 0.96), grid / 2),
-      s: randomBetween(random, 3, 11),
+      s: randomBetween(random, 4, 14),
       shape: random() > 0.42 ? "square" : "circle",
       color: pick(random, [palette.colors[2], palette.colors[3], palette.colors[4], palette.colors[5]]),
-      alpha: randomBetween(random, 0.24, 0.82),
+      alpha: randomBetween(random, 0.42, 0.92),
       phase: random() * Math.PI * 2,
     });
   }
@@ -440,7 +440,7 @@ function buildMechanicalComposition(settings, random) {
       bx: b.x,
       by: b.y,
       color: pick(random, [palette.colors[2], palette.colors[3], palette.colors[5]]),
-      alpha: randomBetween(random, 0.07, 0.24),
+      alpha: randomBetween(random, 0.045, 0.15),
       phase: random() * Math.PI * 2,
     });
   }
@@ -450,14 +450,14 @@ function drawMechanicalBackground(settings, phase) {
   const { width, height, palette } = settings;
   const gradient = ctx.createLinearGradient(0, 0, width, height);
   gradient.addColorStop(0, palette.colors[0]);
-  gradient.addColorStop(0.58, "#171a1b");
-  gradient.addColorStop(1, "#0b0c0d");
+  gradient.addColorStop(0.62, "#131617");
+  gradient.addColorStop(1, "#090a0b");
   ctx.fillStyle = gradient;
   ctx.fillRect(0, 0, width, height);
 
   const grid = Math.max(20, Math.round(Math.min(width, height) / 18));
   const offset = phase * grid * settings.motion;
-  ctx.strokeStyle = rgba(palette.colors[3], 0.055);
+  ctx.strokeStyle = rgba(palette.colors[3], 0.026);
   ctx.lineWidth = 1;
 
   for (let x = -grid + (offset % grid); x < width + grid; x += grid) {
@@ -477,7 +477,7 @@ function drawMechanicalBackground(settings, phase) {
   ctx.globalCompositeOperation = "screen";
   ctx.translate(width * 0.5, height * 0.22);
   ctx.rotate(-Math.PI / 4);
-  ctx.fillStyle = rgba(palette.colors[1], 0.18);
+  ctx.fillStyle = rgba(palette.colors[1], 0.075);
   ctx.fillRect(-width, -height * 0.09, width * 2, height * 0.2);
   ctx.restore();
 }
@@ -490,7 +490,7 @@ function drawMechanicalPanels(settings, phase) {
     ctx.rotate(panel.angle);
     ctx.fillStyle = rgba(panel.color, panel.alpha);
     ctx.fillRect(-panel.w / 2, -panel.h / 2, panel.w, panel.h);
-    ctx.strokeStyle = rgba(settings.palette.colors[3], panel.alpha * 1.35);
+    ctx.strokeStyle = rgba(settings.palette.colors[3], panel.alpha * 0.9);
     ctx.lineWidth = 1;
     ctx.strokeRect(-panel.w / 2, -panel.h / 2, panel.w, panel.h);
     ctx.restore();
@@ -507,11 +507,11 @@ function drawMechanicalHatches(settings, phase) {
     ctx.beginPath();
     ctx.rect(-band.w / 2, -band.h / 2, band.w, band.h);
     ctx.clip();
-    ctx.fillStyle = rgba(palette.colors[3], band.alpha * 0.26);
+    ctx.fillStyle = rgba(palette.colors[3], band.alpha * 0.18);
     ctx.fillRect(-band.w / 2, -band.h / 2, band.w, band.h);
 
     for (let x = -band.w; x < band.w * 1.2; x += band.step) {
-      ctx.fillStyle = index % 2 === 0 ? rgba(palette.colors[3], band.alpha) : rgba(palette.colors[0], 0.42);
+      ctx.fillStyle = index % 2 === 0 ? rgba(palette.colors[3], band.alpha * 0.72) : rgba(palette.colors[0], 0.26);
       ctx.fillRect(x + (shift % band.step), -band.h / 2, band.step * 0.45, band.h);
     }
     ctx.restore();
@@ -569,19 +569,25 @@ function drawMechanicalRings(settings, phase) {
   state.rings.forEach((ring) => {
     const rotation = ring.phase + phase * Math.PI * 2 * ring.speed * settings.motion;
     ctx.save();
+    ctx.globalCompositeOperation = "screen";
     ctx.translate(ring.x, ring.y);
     ctx.rotate(rotation);
 
     ctx.beginPath();
+    ctx.arc(0, 0, ring.r * 1.04, 0, Math.PI * 2);
+    ctx.fillStyle = rgba(ring.color, ring.alpha * 0.045);
+    ctx.fill();
+
+    ctx.beginPath();
     ctx.arc(0, 0, ring.r, 0, Math.PI * 2);
     ctx.strokeStyle = rgba(ring.color, ring.alpha);
-    ctx.lineWidth = 1.1;
+    ctx.lineWidth = 1.65;
     ctx.stroke();
 
     ctx.beginPath();
     ctx.arc(0, 0, ring.r * ring.inner, 0, Math.PI * 2);
-    ctx.strokeStyle = rgba(settings.palette.colors[3], ring.alpha * 0.55);
-    ctx.lineWidth = 0.75;
+    ctx.strokeStyle = rgba(settings.palette.colors[3], ring.alpha * 0.7);
+    ctx.lineWidth = 0.95;
     ctx.stroke();
 
     for (let i = 0; i < ring.segments; i += 1) {
@@ -589,8 +595,8 @@ function drawMechanicalRings(settings, phase) {
       const end = start + Math.PI / ring.segments;
       ctx.beginPath();
       ctx.arc(0, 0, ring.r * 1.18, start, end);
-      ctx.strokeStyle = rgba(ring.color, ring.alpha * 1.3);
-      ctx.lineWidth = 2;
+      ctx.strokeStyle = rgba(ring.color, Math.min(0.95, ring.alpha * 1.25));
+      ctx.lineWidth = 2.8;
       ctx.stroke();
     }
 
@@ -601,8 +607,8 @@ function drawMechanicalRings(settings, phase) {
       ctx.beginPath();
       ctx.moveTo(Math.cos(a) * inner, Math.sin(a) * inner);
       ctx.lineTo(Math.cos(a) * outer, Math.sin(a) * outer);
-      ctx.strokeStyle = rgba(settings.palette.colors[3], ring.alpha * 0.7);
-      ctx.lineWidth = 0.65;
+      ctx.strokeStyle = rgba(settings.palette.colors[3], ring.alpha * 0.86);
+      ctx.lineWidth = 0.85;
       ctx.stroke();
     }
     ctx.restore();
@@ -612,9 +618,11 @@ function drawMechanicalRings(settings, phase) {
 function drawMechanicalNodes(settings, phase) {
   state.nodes.forEach((node) => {
     const pulse = 0.65 + 0.35 * Math.sin(phase * Math.PI * 2 + node.phase);
+    ctx.save();
+    ctx.globalCompositeOperation = "screen";
     ctx.fillStyle = rgba(node.color, node.alpha * pulse);
-    ctx.strokeStyle = rgba(settings.palette.colors[3], node.alpha * 0.35);
-    ctx.lineWidth = 0.8;
+    ctx.strokeStyle = rgba(settings.palette.colors[3], node.alpha * 0.55);
+    ctx.lineWidth = 1;
     if (node.shape === "square") {
       ctx.fillRect(node.x - node.s / 2, node.y - node.s / 2, node.s, node.s);
       ctx.strokeRect(node.x - node.s / 2, node.y - node.s / 2, node.s, node.s);
@@ -624,6 +632,7 @@ function drawMechanicalNodes(settings, phase) {
       ctx.fill();
       ctx.stroke();
     }
+    ctx.restore();
   });
 }
 
