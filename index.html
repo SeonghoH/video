@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Generative Shorts Studio</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="stage-panel" aria-label="preview">
+        <div class="topbar">
+          <div>
+            <p id="styleEyebrow" class="eyebrow">Mechanical Field</p>
+            <h1>Daily Generative Shorts</h1>
+          </div>
+          <div class="top-actions">
+            <button id="regenerateBtn" class="button secondary" type="button" title="새 이미지">
+              <span aria-hidden="true">↻</span>
+              <span>Generate</span>
+            </button>
+            <button id="exportImageBtn" class="button secondary" type="button" title="이미지 저장">
+              <span aria-hidden="true">□</span>
+              <span>PNG</span>
+            </button>
+            <button id="exportVideoBtn" class="button primary" type="button" title="영상 내보내기">
+              <span aria-hidden="true">●</span>
+              <span>Video</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="preview-wrap">
+          <div class="phone-frame">
+            <canvas id="artCanvas" width="720" height="1280"></canvas>
+          </div>
+        </div>
+
+        <div class="status-row">
+          <span id="statusText">Ready</span>
+          <span id="frameMeta">720 × 1280 · 12s</span>
+        </div>
+      </section>
+
+      <aside class="control-panel" aria-label="controls">
+        <section class="control-group">
+          <div class="group-head">
+            <h2>Style</h2>
+          </div>
+          <div id="styleList" class="option-list"></div>
+        </section>
+
+        <section class="control-group">
+          <div class="group-head">
+            <h2>Preset</h2>
+          </div>
+          <div id="presetList" class="option-list"></div>
+        </section>
+
+        <section class="control-group">
+          <div class="group-head">
+            <h2>Palette</h2>
+          </div>
+          <div id="paletteList" class="palette-list"></div>
+        </section>
+
+        <section class="control-group">
+          <div class="group-head">
+            <h2>Structure</h2>
+          </div>
+          <label class="field">
+            <span>Density</span>
+            <input id="densityInput" type="range" min="20" max="100" value="62" />
+          </label>
+          <label class="field">
+            <span>Flow</span>
+            <input id="flowInput" type="range" min="10" max="100" value="58" />
+          </label>
+          <label class="field">
+            <span>Contour</span>
+            <input id="contourInput" type="range" min="10" max="100" value="72" />
+          </label>
+          <label class="field">
+            <span>Grain</span>
+            <input id="grainInput" type="range" min="0" max="100" value="38" />
+          </label>
+        </section>
+
+        <section class="control-group">
+          <div class="group-head">
+            <h2>Motion</h2>
+          </div>
+          <label class="field">
+            <span>Drift</span>
+            <input id="motionInput" type="range" min="0" max="100" value="34" />
+          </label>
+          <label class="field">
+            <span>Duration</span>
+            <select id="durationInput">
+              <option value="8">8s</option>
+              <option value="10">10s</option>
+              <option value="12" selected>12s</option>
+              <option value="15">15s</option>
+            </select>
+          </label>
+          <label class="field">
+            <span>Size</span>
+            <select id="sizeInput">
+              <option value="720x1280" selected>720 × 1280</option>
+              <option value="1080x1920">1080 × 1920</option>
+            </select>
+          </label>
+        </section>
+
+        <section class="control-group">
+          <div class="group-head">
+            <h2>Seed</h2>
+          </div>
+          <div class="seed-row">
+            <input id="seedInput" type="text" value="MECH-0521" spellcheck="false" />
+            <button id="seedBtn" class="icon-button" type="button" title="새 시드">↺</button>
+          </div>
+        </section>
+      </aside>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
